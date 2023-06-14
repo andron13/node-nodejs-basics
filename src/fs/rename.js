@@ -1,35 +1,42 @@
 import fs from "fs";
-import url from "url";
+import { fileURLToPath } from "url";
+import { join } from "path";
 
-const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
-const folder = "/files/"
-const oldFileName = __dirname + folder + "wrongFilename";
-const newFileName = __dirname + folder + "properFilename";
 const errorText = "FS operation failed";
-const markdownFormat = ".md";
-const textFormat = ".txt"
+const folder = "files";
+const oldFileName = "wrongFilename.txt";
+const newFileName = "properFilename.md";
+const pathToFolder = join(fileURLToPath(import.meta.url), "..", folder);
+const pathToOldFile = join(pathToFolder, oldFileName);
+const pathToNewFile = join(pathToFolder, newFileName);
 
 const rename = async () => {
+
+  let oldFileExists = true;
+  let newFileExists = true;
+
   try {
-    if (fileExist(oldFileName + textFormat) &&
-      !fileExist(newFileName + markdownFormat)) {
+    try {
+      await fs.promises.access(pathToOldFile, fs.constants.F_OK);
+    } catch {
+      oldFileExists = false;
     }
-    await fs.promises.rename(oldFileName + textFormat, newFileName + markdownFormat)
+
+    try {
+      await fs.promises.access(pathToNewFile, fs.constants.F_OK);
+    } catch {
+      newFileExists = false;
+    }
+
+    if (!oldFileExists || newFileExists){
+      return Promise.reject(Error(errorText));
+    }
+
+    await fs.promises.rename(pathToOldFile, pathToNewFile);
+
   } catch (err) {
-    throw new Error(errorText)
+    throw new Error(errorText);
   }
-
-
 };
 
 await rename();
-
-const fileExist = async (file) => {
-  fs.access(file, fs.F_OK, (err) => {
-    return !err;
-  });
-}
-
-//rename.js - implement function that renames file wrongFilename.txt to properFilename with extension .md
-// (if there's no file wrongFilename.txt or properFilename.md already exists
-// Error with message FS operation failed must be thrown)

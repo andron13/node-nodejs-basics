@@ -1,21 +1,23 @@
-import {Buffer} from 'node:buffer';
-import fs from "fs";
-import url from "url";
+import * as fs from "fs";
+import {Buffer} from "buffer";
+import {fileURLToPath} from "url";
+import {join} from "path";
 
 const successText = "I am fresh and young";
 const data = new Uint8Array(Buffer.from(successText));
 const errorText = "FS operation failed"
 const file = "fresh.txt";
-const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
-const pathToFile = __dirname + "/files/" + file;
+const folder = "files";
+const pathToFile =
+  join(fileURLToPath(import.meta.url), "..", folder, file);
 
 const create = async () => {
   try {
     await fs.promises.writeFile(pathToFile, data, {
-      flag: 'wx'
+      flag: "wx",
     });
   } catch (err) {
-    throw new Error(errorText)
+    throw new Error(errorText);
   }
 };
 
