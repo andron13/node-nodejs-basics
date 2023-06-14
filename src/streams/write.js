@@ -1,4 +1,4 @@
-import fs from 'fs';
+import fs from "fs";
 import {join} from "path";
 import {fileURLToPath} from "url";
 
@@ -12,15 +12,15 @@ const write = async () => {
 
   const writableStream = fs.createWriteStream(filePath);
 
-  process.stdin.on('data', (chunk) => {
+  process.stdin.on("data", (chunk) => {
     writableStream.write(chunk);
   });
 
-  process.stdin.on('end', () => {
+  process.stdin.on("end", () => {
     writableStream.end();
   });
 
-  writableStream.on('finish', () => {
+  writableStream.on("finish", () => {
     console.log(finalText);  //  Ctrl + D - Mac, Ctrl + Z - Win
   });
 

@@ -1,15 +1,17 @@
+const errorText = "No RSS environment variables found."
+
 const parseEnv = () => {
   const envs = process.env;
   const filteredEnvs = Object.entries(envs)
-    .filter(([key]) => key.startsWith('RSS_'));
+    .filter(([key]) => key.startsWith("RSS_"));
 
   if (filteredEnvs.length === 0) {
-    console.log('No RSS environment variables found.');
+    console.log(errorText);
     return;
   }
   const result = filteredEnvs
     .map(([key, value]) => `${key}=${value}`)
-    .join('; ');
+    .join("; ");
   console.log(result);
 };
 
@@ -22,8 +24,8 @@ parseEnv();
  * according to the given technical requirements.
  */
 const testParseEnv = () => {
-  process.env.RSS_name1 = 'value1';
-  process.env.RSS_name2 = 'value2';
-  process.env.RSS_name3 = 'value3';
+  process.env.RSS_name1 = "value1";
+  process.env.RSS_name2 = "value2";
+  process.env.RSS_name3 = "value3";
   parseEnv();
 };

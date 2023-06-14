@@ -10,11 +10,11 @@ const filePath = join(fileURLToPath(import.meta.url), "..", folder, file);
 const read = async () => {
   const readableStream = fs.createReadStream(filePath);
 
-  readableStream.on('data', (chunk) => {
+  readableStream.on("data", (chunk) => {
     process.stdout.write(chunk);
   });
 
-  readableStream.on('error', (err) => {
+  readableStream.on("error", (err) => {
     console.error(errorText, err.message);
   });
 };
