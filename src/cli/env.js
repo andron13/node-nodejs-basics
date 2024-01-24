@@ -17,15 +17,3 @@ const parseEnv = () => {
 
 parseEnv();
 
-/**
- * The testParseEnv function creates several environment variables with the prefix 'RSS_'
- * and calls the parseEnv function to process them and print them to the console.
- * This is a test function to verify the correctness of the parseEnv function
- * according to the given technical requirements.
- */
-const testParseEnv = () => {
-  process.env.RSS_name1 = "value1";
-  process.env.RSS_name2 = "value2";
-  process.env.RSS_name3 = "value3";
-  parseEnv();
-};

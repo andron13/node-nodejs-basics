@@ -16,4 +16,3 @@ const parseArgs = () => {
 
 parseArgs();
 
-// Test:$node args.js --name John --age 30 --city London
