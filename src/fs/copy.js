@@ -9,9 +9,32 @@ const errorText = "FS operation failed";
 
 const copy = async () => {
   try {
-    await fs.promises.copyFile(sourceFolder, targetFolder);
+
+    if (!fs.existsSync(sourceFolder)) {
+      throw new Error(`${errorText}: source folder does not exist`);
+    }
+
+    if (fs.existsSync(targetFolder)) {
+      throw new Error(`${errorText}: target folder already exists`);
+    }
+
+    const entries = await fs.promises.readdir(sourceFolder, { withFileTypes: true });
+
+    await fs.promises.mkdir(targetFolder);
+    for (let entry of entries) {
+      const srcPath = join(sourceFolder, entry.name);
+      const destPath = join(targetFolder, entry.name);
+
+      if (entry.isDirectory()) {
+        await fs.promises.mkdir(destPath);
+        await copy(srcPath, destPath);
+      } else {
+        await fs.promises.copyFile(srcPath, destPath);
+      }
+    }
+
   } catch (err) {
-    throw new Error(errorText);
+    throw new Error(`${errorText}: ${err.message}`);
   }
 };
 
