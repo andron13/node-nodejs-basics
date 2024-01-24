@@ -1,5 +1,4 @@
 import * as fs from "fs";
-import {Buffer} from "buffer";
 import {fileURLToPath} from "url";
 import {join} from "path";
 
