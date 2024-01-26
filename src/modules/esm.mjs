@@ -1,22 +1,25 @@
-import path, { dirname } from "path";
-import {release, version} from "os";
-import {createServer as createServerHttp} from "http";
-import { readFileSync } from 'fs';
-import {fileURLToPath} from "url";
+import {promises as fsPromises} from 'fs';
+import path, {dirname, join} from 'path';
+import {fileURLToPath} from 'url';
+import {release, version} from 'os';
+import {createServer as createServerHttp} from 'http';
 
-import "./files/c.js";
+import './files/c.js';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const random = Math.random();
+const readFile = async ( pathToFile) => {
+  const filePath = join(dirname(fileURLToPath(import.meta.url)),  pathToFile);
+  const data = await  fsPromises.readFile(filePath, 'utf-8');
+  return JSON.parse(data);
+}
 
 let unknownObject;
 
+const random = Math.random();
+
 if (random > 0.5) {
-  unknownObject = JSON.parse(readFileSync(`${__dirname}/files/a.json`));
+  unknownObject = await readFile("files/a.json");
 } else {
-  unknownObject = JSON.parse(readFileSync(`${__dirname}/files/a.json`));
+  unknownObject = await readFile("files/b.json");
 }
 
 console.log(`Release ${release()}`);
