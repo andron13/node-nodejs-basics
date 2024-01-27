@@ -1,10 +1,10 @@
-import fs from "fs";
-import {fileURLToPath} from "url";
-import {join} from "path";
+import fs from 'fs';
+import { fileURLToPath } from 'url';
+import { join } from 'path';
 
-const errorText = "FS operation failed";
-const folderName = "files";
-const folderPath = join(fileURLToPath(import.meta.url), "..", folderName);
+const errorText = 'FS operation failed';
+const folderName = 'files';
+const folderPath = join(fileURLToPath(import.meta.url), '..', folderName);
 
 const list = async () => {
   try {

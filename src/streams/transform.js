@@ -1,8 +1,8 @@
-import { Transform } from "stream";
+import { Transform } from 'stream';
 
 const reverseText = new Transform({
   transform(chunk, encoding, callback) {
-    const reversedChunk = chunk.toString().split('').reverse().join("");
+    const reversedChunk = chunk.toString().split('').reverse().join('');
     this.push(reversedChunk);
     callback();
   },

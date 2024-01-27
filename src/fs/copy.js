@@ -1,15 +1,15 @@
-import * as fs from "fs";
-import {fileURLToPath} from "url";
-import {dirname, join} from "path";
+import * as fs from 'fs';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const sourceFolder = join(__dirname, "files");
-const targetFolder = join(__dirname, "files_copy");
-const errorText = "FS operation failed";
+const dirName = dirname(fileURLToPath(import.meta.url));
+
+const sourceFolder = join(dirName, 'files');
+const targetFolder = join(dirName, 'files_copy');
+const errorText = 'FS operation failed';
 
 const copy = async () => {
   try {
-
     if (!fs.existsSync(sourceFolder)) {
       throw new Error(`${errorText}: source folder does not exist`);
     }
@@ -32,7 +32,6 @@ const copy = async () => {
         await fs.promises.copyFile(srcPath, destPath);
       }
     }
-
   } catch (err) {
     throw new Error(`${errorText}: ${err.message}`);
   }

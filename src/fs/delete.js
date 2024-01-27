@@ -1,12 +1,11 @@
-import fs from "fs";
-import {fileURLToPath} from "url";
-import {join} from "path";
+import fs from 'fs';
+import { fileURLToPath } from 'url';
+import { join } from 'path';
 
-const errorText = "FS operation failed";
-const file = "fileToRemove.txt";
-const folder = "files";
-const pathToFile =
-  join(fileURLToPath(import.meta.url), "..", folder, file);
+const errorText = 'FS operation failed';
+const file = 'fileToRemove.txt';
+const folder = 'files';
+const pathToFile = join(fileURLToPath(import.meta.url), '..', folder, file);
 
 const remove = async () => {
   try {

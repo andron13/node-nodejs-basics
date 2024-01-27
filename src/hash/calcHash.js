@@ -1,13 +1,13 @@
-import fs from "fs";
-import crypto from "crypto";
-import {fileURLToPath} from "url";
-import {join} from "path";
+import fs from 'fs';
+import crypto from 'crypto';
+import { fileURLToPath } from 'url';
+import { join } from 'path';
 
-const errorText = "The SHA256 hash calculating operation failed.";
-const hashAlgorithm = "sha256";
-const file = "fileToCalculateHashFor.txt";
-const folder = "files";
-const filePath = join(fileURLToPath(import.meta.url), "..", folder, file);
+const errorText = 'The SHA256 hash calculating operation failed.';
+const hashAlgorithm = 'sha256';
+const file = 'fileToCalculateHashFor.txt';
+const folder = 'files';
+const filePath = join(fileURLToPath(import.meta.url), '..', folder, file);
 
 const calculateHash = async () => {
   const hash = crypto.createHash(hashAlgorithm);

@@ -1,17 +1,16 @@
-import fs from "fs";
-import { fileURLToPath } from "url";
-import { join } from "path";
+import fs from 'fs';
+import { fileURLToPath } from 'url';
+import { join } from 'path';
 
-const errorText = "FS operation failed";
-const folder = "files";
-const oldFileName = "wrongFilename.txt";
-const newFileName = "properFilename.md";
-const pathToFolder = join(fileURLToPath(import.meta.url), "..", folder);
+const errorText = 'FS operation failed';
+const folder = 'files';
+const oldFileName = 'wrongFilename.txt';
+const newFileName = 'properFilename.md';
+const pathToFolder = join(fileURLToPath(import.meta.url), '..', folder);
 const pathToOldFile = join(pathToFolder, oldFileName);
 const pathToNewFile = join(pathToFolder, newFileName);
 
 const rename = async () => {
-
   let oldFileExists = true;
   let newFileExists = true;
 
@@ -28,12 +27,11 @@ const rename = async () => {
       newFileExists = false;
     }
 
-    if (!oldFileExists || newFileExists){
+    if (!oldFileExists || newFileExists) {
       return Promise.reject(Error(errorText));
     }
 
     await fs.promises.rename(pathToOldFile, pathToNewFile);
-
   } catch (err) {
     throw new Error(errorText);
   }
